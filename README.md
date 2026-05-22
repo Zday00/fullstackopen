@@ -42,8 +42,6 @@ sequenceDiagram
 
     Note over browser: The browser executes the callback function to render all notes dynamically
 
-
-
     sequenceDiagram
     participant browser
     participant server
@@ -71,8 +69,6 @@ sequenceDiagram
     deactivate server
 
     Note over browser: The browser runs the JS code to render the elements without reloads
-
-
 
     sequenceDiagram
     participant browser
