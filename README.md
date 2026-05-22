@@ -1,7 +1,6 @@
 # Part 0 Exercises - Full Stack Open
 
 ## Exercise 0.4: New note diagram (Traditional Web App)
-The user writes a note and clicks the "Save" button. This triggers a full page reload chain.
 
 ```mermaid
 sequenceDiagram
@@ -10,78 +9,86 @@ sequenceDiagram
 
     Note over browser: The user writes a note and clicks the "Save" button
 
-    browser->>server: POST [https://studies.cs.helsinki.fi/exampleapp/new_note](https://studies.cs.helsinki.fi/exampleapp/new_note)
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
     activate server
-    Note over server: The server saves the new note object into its memory array
-    server-->>browser: HTTP 302 (Redirect to /notes)
+    Note over server: The server saves the new note into its memory array
+    server-->>browser: HTTP 302 Redirect to /notes
     deactivate server
 
-    Note over browser: The browser follows the redirect and requests the page again
+    Note over browser: The browser follows the redirect
 
-    browser->>server: GET [https://studies.cs.helsinki.fi/exampleapp/notes](https://studies.cs.helsinki.fi/exampleapp/notes)
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
     activate server
     server-->>browser: HTML document
     deactivate server
 
-    browser->>server: GET [https://studies.cs.helsinki.fi/exampleapp/main.css](https://studies.cs.helsinki.fi/exampleapp/main.css)
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
     activate server
     server-->>browser: The CSS file
     deactivate server
 
-    browser->>server: GET [https://studies.cs.helsinki.fi/exampleapp/main.js](https://studies.cs.helsinki.fi/exampleapp/main.js)
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
     activate server
     server-->>browser: The JavaScript file
     deactivate server
 
-    Note over browser: The browser executes the JS code, which requests the updated JSON data
+    Note over browser: The browser executes the JS, which fetches the updated JSON
 
-    browser->>server: GET [https://studies.cs.helsinki.fi/exampleapp/data.json](https://studies.cs.helsinki.fi/exampleapp/data.json)
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
     activate server
-    server-->>browser: The notes list in JSON format (including the new note)
+    server-->>browser: JSON list including the new note
     deactivate server
 
-    Note over browser: The browser executes the callback function to render all notes dynamically
+    Note over browser: The browser renders all notes
+```
 
-    sequenceDiagram
+## Exercise 0.5: Single page app diagram
+
+```mermaid
+sequenceDiagram
     participant browser
     participant server
 
-    browser->>server: GET [https://studies.cs.helsinki.fi/exampleapp/spa](https://studies.cs.helsinki.fi/exampleapp/spa)
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa
     activate server
     server-->>browser: HTML document
     deactivate server
 
-    browser->>server: GET [https://studies.cs.helsinki.fi/exampleapp/main.css](https://studies.cs.helsinki.fi/exampleapp/main.css)
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
     activate server
     server-->>browser: The CSS file
     deactivate server
 
-    browser->>server: GET [https://studies.cs.helsinki.fi/exampleapp/spa.js](https://studies.cs.helsinki.fi/exampleapp/spa.js)
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa.js
     activate server
     server-->>browser: The JavaScript file (spa.js)
     deactivate server
 
-    Note over browser: The spa.js script immediately requests the raw JSON data
+    Note over browser: spa.js immediately requests the JSON data
 
-    browser->>server: GET [https://studies.cs.helsinki.fi/exampleapp/data.json](https://studies.cs.helsinki.fi/exampleapp/data.json)
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
     activate server
     server-->>browser: The notes list in JSON format
     deactivate server
 
-    Note over browser: The browser runs the JS code to render the elements without reloads
+    Note over browser: The browser renders notes without any page reload
+```
 
-    sequenceDiagram
+## Exercise 0.6: New note in Single page app diagram
+
+```mermaid
+sequenceDiagram
     participant browser
     participant server
 
     Note over browser: The user writes a note and clicks "Save"
-    Note over browser: The local JS script adds the note to the local list and redraws the UI instantly
+    Note over browser: JS adds the note to the local list and redraws the UI instantly
 
-    browser->>server: POST [https://studies.cs.helsinki.fi/exampleapp/new_note_spa](https://studies.cs.helsinki.fi/exampleapp/new_note_spa)
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
     activate server
-    Note over browser: Data is sent in the background as a JSON payload
     Note over server: The server receives the JSON and updates its memory array
-    server-->>browser: HTTP 201 (Created)
+    server-->>browser: HTTP 201 Created
     deactivate server
 
-    Note over browser: The browser receives confirmation, no page reload happens
+    Note over browser: No page reload — the UI is already up to date
+```
